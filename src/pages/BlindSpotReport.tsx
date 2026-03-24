@@ -1,9 +1,27 @@
 import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { DiagnosisResult } from "@/lib/mockData";
-import { CheckCircle2, XCircle, Send, Target, Zap, BookOpen, ArrowLeft } from "lucide-react";
+import { CheckCircle2, XCircle, Send, Target, Zap, BookOpen, ArrowLeft, FileSearch, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+
+const getStatusCopy = (errorCategory: string) => {
+  if (errorCategory.toLowerCase() === "conceptual") {
+    return {
+      label: "Conceptual Blindspot",
+      classes: "bg-rose-50 text-rose-700 border-rose-200",
+      hint: "Student likely needs concept re-teaching before more problem volume.",
+    };
+  }
+
+  return {
+    label: "Procedural Slip",
+    classes: "bg-amber-50 text-amber-700 border-amber-200",
+    hint: "Student understands core concept but needs process correction and repetition.",
+  };
+};
 
 const BlindSpotReport = () => {
   const location = useLocation();
@@ -13,6 +31,7 @@ const BlindSpotReport = () => {
 
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [checked, setChecked] = useState<Record<number, boolean | null>>({});
+  const status = getStatusCopy(diagnosis?.error_category ?? "procedural");
 
   const handleCheck = (id: number, correctAnswer: string) => {
     const userAnswer = answers[id]?.trim().toLowerCase() || "";
@@ -48,79 +67,74 @@ const BlindSpotReport = () => {
   return (
     <div className="min-h-screen bg-background pt-14 pb-12">
       <div className="container py-10">
-        <div className="flex items-center gap-4 mb-8">
-          <Link to="/lab" className="text-muted-foreground hover:text-foreground transition-colors">
+        <div className="mb-8 flex items-center gap-4">
+          <Link to="/lab" className="text-muted-foreground transition-colors hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
           </Link>
-          <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">
-            Report
-          </h1>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Diagnostic Report</p>
+            <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">Student Misconception Analysis</h1>
+          </div>
         </div>
 
-        <div className="grid gap-px bg-border lg:grid-cols-2">
-          {/* Left: Uploaded image */}
-          <div className="bg-card">
-            <div className="border-b border-border px-5 py-3">
-              <p className="font-display text-[10px] uppercase tracking-widest text-muted-foreground">
-                Submitted Work
-              </p>
+        <div className="grid gap-6 lg:grid-cols-3">
+          <Card className="border-slate-200 p-5 lg:col-span-1">
+            <div className="mb-4 flex items-center gap-2">
+              <FileSearch className="h-4 w-4 text-indigo-600" />
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Submitted Work</p>
             </div>
             <div className="flex items-center justify-center p-6 min-h-[300px]">
               {imageUrl ? (
                 <img
                   src={imageUrl}
                   alt="Submitted work"
-                  className="max-h-96 w-full object-contain"
+                  className="max-h-96 w-full rounded-md border border-slate-200 object-contain"
                 />
               ) : (
                 <p className="text-sm text-muted-foreground">No image</p>
               )}
             </div>
-          </div>
+          </Card>
 
-          {/* Right: AI Breakdown */}
-          <div className="bg-card">
-            {/* Error Tag */}
-            <div className="border-b border-border p-5">
-              <div className="flex items-center gap-3">
-                <Target className="h-4 w-4 text-signal-red" />
+          <div className="space-y-6 lg:col-span-2">
+            <Card className="border-slate-200 p-5">
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-display text-[10px] uppercase tracking-widest text-muted-foreground">
-                    Error Detected
-                  </p>
-                  <span className="mt-1 inline-flex border border-signal-red px-2 py-0.5 text-xs font-display uppercase tracking-wider text-signal-red">
-                    {diagnosis.error_category}: {diagnosis.error_tag}
-                  </span>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Status</p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <Target className="h-4 w-4 text-indigo-600" />
+                    <Badge className={`border text-xs font-semibold ${status.classes}`}>{status.label}</Badge>
+                  </div>
+                </div>
+                <div className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-600">
+                  {status.hint}
                 </div>
               </div>
-            </div>
+              <p className="mt-4 text-sm text-slate-700">
+                <span className="font-semibold text-slate-900">Detected tag:</span> {diagnosis.error_tag}
+              </p>
+            </Card>
 
-            {/* Diagnosis */}
-            <div className="border-b border-border p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <Zap className="h-3.5 w-3.5 text-signal-yellow" />
-                <p className="font-display text-[10px] uppercase tracking-widest text-muted-foreground">
-                  Diagnosis
-                </p>
+            <Card className="border-slate-200 p-6">
+              <div className="mb-3 flex items-center gap-2">
+                <TriangleAlert className="h-4 w-4 text-rose-600" />
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Why It’s Wrong</p>
               </div>
-              <p className="text-sm leading-relaxed text-foreground/80">
+              <p className="text-lg font-semibold leading-relaxed text-slate-900 md:text-xl">
                 {diagnosis.explanation}
               </p>
-            </div>
+            </Card>
 
-            {/* Drill Mode */}
-            <div className="p-5">
-              <div className="flex items-center gap-2 mb-5">
-                <Zap className="h-3.5 w-3.5 text-foreground" />
-                <p className="font-display text-[10px] font-bold uppercase tracking-widest text-foreground">
-                  Drill Mode
-                </p>
+            <Card className="border-slate-200 p-5">
+              <div className="mb-5 flex items-center gap-2">
+                <Zap className="h-4 w-4 text-indigo-600" />
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Learning Path (Fix)</p>
               </div>
               <div className="space-y-5">
                 {diagnosis.practice_problems.map((prob, i) => (
-                  <div key={prob.id} className="space-y-3">
-                    <p className="text-sm text-foreground">
-                      <span className="font-display text-[10px] text-muted-foreground mr-2 uppercase">
+                  <div key={prob.id} className="space-y-3 rounded-lg border border-slate-200 p-4">
+                    <p className="text-sm text-slate-900">
+                      <span className="mr-2 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
                         Q{i + 1}
                       </span>
                       {prob.question}
@@ -132,22 +146,22 @@ const BlindSpotReport = () => {
                         onChange={(e) =>
                           setAnswers((p) => ({ ...p, [prob.id]: e.target.value }))
                         }
-                        className="bg-secondary border-border font-body text-sm"
+                        className="border-slate-300 bg-white text-sm"
                       />
                       <Button
                         size="sm"
                         onClick={() => handleCheck(prob.id, prob.answer)}
-                        className="shrink-0"
+                        className="shrink-0 bg-indigo-600 hover:bg-indigo-700"
                       >
                         <Send className="h-3.5 w-3.5" />
                       </Button>
                     </div>
                     {checked[prob.id] !== undefined && checked[prob.id] !== null && (
                       <div
-                        className={`flex items-start gap-2 border p-3 text-xs ${
+                        className={`flex items-start gap-2 rounded-md border p-3 text-xs ${
                           checked[prob.id]
-                            ? "border-signal-green text-signal-green"
-                            : "border-signal-red text-signal-red"
+                            ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                            : "border-rose-200 bg-rose-50 text-rose-700"
                         }`}
                       >
                         {checked[prob.id] ? (
@@ -165,7 +179,7 @@ const BlindSpotReport = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </Card>
           </div>
         </div>
       </div>

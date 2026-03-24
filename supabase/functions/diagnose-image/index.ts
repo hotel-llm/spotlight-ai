@@ -26,6 +26,8 @@ serve(async (req) => {
 
 Analyze the uploaded image of a student's incorrect working. Identify the EXACT point where the logic breaks down.
 
+If the image is NOT a photo of STEM student working (e.g. a cat, a meme, scenery) OR it is too blurry to read, you MUST still return structured output, but set input_status accordingly and make the explanation a clear instruction to re-upload a readable photo of the student's work.
+
 You MUST respond using the following tool.`;
 
     const userPrompt = `Analyze this student's work. Find the specific error, categorize it, explain what went wrong in 2-3 sentences, and generate 3 targeted practice problems that test exactly that weakness.`;
@@ -87,6 +89,11 @@ You MUST respond using the following tool.`;
                       required: ["id", "question", "answer"],
                     },
                     description: "Exactly 3 practice problems targeting this specific weakness",
+                  },
+                  input_status: {
+                    type: "string",
+                    enum: ["ok", "blurry", "not_stem"],
+                    description: "Set to 'ok' for readable STEM work; otherwise indicate why the input cannot be diagnosed.",
                   },
                 },
                 required: ["error_category", "error_tag", "explanation", "practice_problems"],

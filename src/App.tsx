@@ -6,6 +6,7 @@ import AppNav from "@/components/AppNav";
 import Index from "./pages/Index";
 import DiagnosticLab from "./pages/DiagnosticLab";
 import BlindSpotReport from "./pages/BlindSpotReport";
+import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/lab" element={<DiagnosticLab />} />
           <Route path="/report" element={<BlindSpotReport />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

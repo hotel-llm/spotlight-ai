@@ -25,6 +25,7 @@ export interface DiagnosisResult {
     question: string;
     answer: string;
   }[];
+  input_status?: "ok" | "blurry" | "not_stem";
 }
 
 export function getMasteryColor(score: number): "red" | "yellow" | "green" {
