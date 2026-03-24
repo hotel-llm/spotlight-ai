@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['JetBrains Mono', 'monospace'],
-        body: ['Space Grotesk', 'sans-serif'],
+        display: ["Space Mono", "monospace"],
+        body: ["Inter", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,14 +51,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        neon: {
-          cyan: "hsl(var(--neon-cyan))",
-          green: "hsl(var(--neon-green))",
-          red: "hsl(var(--neon-red))",
-          yellow: "hsl(var(--neon-yellow))",
-        },
-        surface: {
-          elevated: "hsl(var(--surface-elevated))",
+        signal: {
+          red: "hsl(var(--signal-red))",
+          yellow: "hsl(var(--signal-yellow))",
+          green: "hsl(var(--signal-green))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -85,20 +81,10 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "1" },
-        },
-        "scan-line": {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100%)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-        "scan-line": "scan-line 2s linear infinite",
       },
     },
   },
