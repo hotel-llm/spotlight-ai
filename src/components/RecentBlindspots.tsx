@@ -1,42 +1,55 @@
-import { mockRecentErrors } from "@/lib/mockData";
-import { motion } from "framer-motion";
-import { AlertTriangle, Clock } from "lucide-react";
+import { ErrorLog } from "@/lib/mockData";
+import { AlertTriangle, Inbox } from "lucide-react";
 
-const RecentBlindspots = () => {
+interface Props {
+  data: ErrorLog[];
+}
+
+const RecentBlindspots = ({ data }: Props) => {
+  if (data.length === 0) {
+    return (
+      <div className="border border-border bg-card p-12 flex flex-col items-center justify-center text-center h-full">
+        <Inbox className="h-8 w-8 text-muted-foreground mb-4" />
+        <p className="font-display text-xs uppercase tracking-widest text-muted-foreground">
+          No errors logged
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Your blind spots will appear here after analysis.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
-      <h2 className="font-display text-lg font-semibold text-foreground">
-        Recent BlindSpots
+      <h2 className="font-display text-xs font-bold uppercase tracking-widest text-foreground">
+        Recent Blind Spots
       </h2>
-      <div className="space-y-3">
-        {mockRecentErrors.map((error, i) => (
-          <motion.div
+      <div className="divide-y divide-border border border-border">
+        {data.map((error) => (
+          <div
             key={error.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="group flex items-start gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:bg-surface-elevated"
+            className="flex items-start gap-4 bg-card p-4 hover:bg-accent transition-colors"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neon-red/10 border border-neon-red/30">
-              <AlertTriangle className="h-5 w-5 text-neon-red" />
-            </div>
+            <AlertTriangle className="h-4 w-4 text-signal-red shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary border border-primary/20">
+                <span className="inline-flex items-center border border-border px-2 py-0.5 text-[10px] font-display uppercase tracking-wider text-muted-foreground">
                   {error.error_category}
                 </span>
-                <span className="text-xs text-muted-foreground">{error.subject}</span>
+                <span className="text-[10px] font-display uppercase tracking-wider text-muted-foreground">
+                  {error.subject}
+                </span>
               </div>
-              <p className="mt-1 text-sm font-semibold text-foreground">
+              <p className="mt-1 text-sm font-bold text-foreground">
                 {error.specific_error_tag}
               </p>
               <p className="text-xs text-muted-foreground">{error.topic}</p>
             </div>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
-              <Clock className="h-3 w-3" />
+            <span className="text-[10px] font-display text-muted-foreground shrink-0 uppercase tracking-wider">
               {new Date(error.created_at).toLocaleDateString()}
-            </div>
-          </motion.div>
+            </span>
+          </div>
         ))}
       </div>
     </div>
