@@ -14,8 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"Geist Sans"', "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        body: ['"Geist Sans"', "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
