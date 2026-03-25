@@ -15,18 +15,17 @@ export async function checkScanCredits(): Promise<ScanCreditState> {
     return { allowed: true, credits: null };
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await (supabase as any)
     .from("profiles")
     .select("scan_credits")
     .eq("id", user.id)
     .single();
 
   if (error) {
-    // Do not block scanning on unexpected table/RLS issues.
     return { allowed: true, credits: null };
   }
 
-  const credits = data?.scan_credits ?? 0;
+  const credits = (data as any)?.scan_credits ?? 0;
   return { allowed: credits > 0, credits };
 }
 
