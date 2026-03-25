@@ -55,50 +55,44 @@ export default function EducatorLayout({
 
   return (
     <SidebarProvider defaultOpen={true}>
-      <div className="min-h-screen bg-slate-50 pt-14">
+      <div className="relative z-10 min-h-screen pt-14">
         <div className="relative">
           <Sidebar
             variant="sidebar"
             collapsible="icon"
-            className="border-r border-slate-200 bg-white text-sidebar-foreground"
+            className="border-r border-border bg-card text-sidebar-foreground"
           >
             <SidebarHeader className="gap-3 p-3">
               <div className="flex items-center justify-between gap-2">
                 <Link to="/" className="flex items-center gap-2">
-                  <Target className="h-4 w-4 text-slate-900" strokeWidth={1.5} />
-                  <span className="text-xs font-semibold tracking-tight text-slate-900">Blindspot</span>
+                  <Target className="h-4 w-4 text-primary" strokeWidth={1.5} />
+                  <span className="text-xs font-bold tracking-tight text-foreground">Blindspot</span>
                 </Link>
-                <SidebarTrigger className="text-slate-600 hover:text-slate-900" />
+                <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
               </div>
 
-              <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                <div className="text-[10px] font-medium uppercase tracking-wide text-slate-500">Workspace</div>
-                <div className="mt-0.5 text-xs text-slate-700">Labs & recent scans</div>
+              <div className="rounded-lg border border-border bg-secondary px-3 py-2">
+                <div className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">Workspace</div>
+                <div className="mt-0.5 text-xs text-foreground">Labs & recent scans</div>
               </div>
 
               <SidebarMenu>
-                <NavItem
-                  to="/"
-                  icon={LayoutDashboard}
-                  label="Home"
-                  isActive={location.pathname === "/"}
-                />
+                <NavItem to="/" icon={LayoutDashboard} label="Home" isActive={location.pathname === "/"} />
                 <NavItem to="/lab" icon={Microscope} label="Lab" isActive={location.pathname === "/lab"} />
               </SidebarMenu>
             </SidebarHeader>
 
-            <SidebarSeparator className="bg-slate-200" />
+            <SidebarSeparator className="bg-border" />
             <HistorySidebar />
             <SidebarRail />
           </Sidebar>
 
-          <SidebarInset className={cn("bg-slate-50", className)}>
+          <SidebarInset className={cn(className)}>
             <div className="container max-w-6xl py-8 sm:py-10">
               <div className="mb-8 flex flex-col gap-1">
-                <h1 className="text-2xl font-semibold tracking-tight text-slate-900">{title}</h1>
-                {subtitle ? <p className="text-sm text-slate-600">{subtitle}</p> : null}
+                <h1 className="text-2xl font-bold tracking-tight text-foreground">{title}</h1>
+                {subtitle ? <p className="text-sm text-muted-foreground">{subtitle}</p> : null}
               </div>
-
               {children}
             </div>
           </SidebarInset>

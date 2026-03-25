@@ -1,0 +1,106 @@
+import { FormEvent, useState } from "react";
+import { Link } from "react-router-dom";
+import { Loader2, Mail, Lock, Target, CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
+
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import PageTransition from "@/components/PageTransition";
+
+const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const onSignup = async (e: FormEvent) => {
+    e.preventDefault();
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters.");
+      return;
+    }
+    setIsLoading(true);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: window.location.origin },
+    });
+    setIsLoading(false);
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    setSuccess(true);
+  };
+
+  if (success) {
+    return (
+      <PageTransition>
+        <div className="relative z-10 min-h-screen pt-14">
+          <div className="container flex min-h-[calc(100vh-3.5rem)] items-center justify-center py-12">
+            <Card className="w-full max-w-md border border-border bg-card p-10 text-center">
+              <CheckCircle2 className="mx-auto h-12 w-12 text-primary" />
+              <h1 className="mt-6 text-2xl font-bold tracking-tight text-foreground">Check your email</h1>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                We sent a confirmation link to <span className="font-medium text-foreground">{email}</span>. Click the link to activate your account.
+              </p>
+              <Link to="/login" className="mt-8 inline-block">
+                <Button variant="outline" className="border-border">Back to Login</Button>
+              </Link>
+            </Card>
+          </div>
+        </div>
+      </PageTransition>
+    );
+  }
+
+  return (
+    <PageTransition>
+      <div className="relative z-10 min-h-screen pt-14">
+        <div className="container flex min-h-[calc(100vh-3.5rem)] items-center justify-center py-12">
+          <Card className="w-full max-w-md border border-border bg-card p-8">
+            <div className="mb-6 flex flex-col items-center text-center">
+              <Target className="h-10 w-10 text-primary" strokeWidth={1} />
+              <h1 className="mt-4 text-2xl font-bold tracking-tight text-foreground">Create your account</h1>
+              <p className="mt-2 text-sm text-muted-foreground">Start diagnosing misconceptions in minutes.</p>
+            </div>
+
+            <form onSubmit={onSignup} className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="signup-email" className="text-xs font-medium text-muted-foreground">Email</label>
+                <div className="relative">
+                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="signup-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="you@school.edu" required />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="signup-password" className="text-xs font-medium text-muted-foreground">Password</label>
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="signup-password" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-border bg-secondary pl-9" placeholder="Min 6 characters" required />
+                </div>
+              </div>
+
+              <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+                {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                Create Account
+              </Button>
+            </form>
+
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              Already have an account?{" "}
+              <Link to="/login" className="font-medium text-primary hover:underline">Sign in</Link>
+            </p>
+          </Card>
+        </div>
+      </div>
+    </PageTransition>
+  );
+};
+
+export default Signup;
