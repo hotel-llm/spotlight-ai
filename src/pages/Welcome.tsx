@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Camera, Loader2, Microscope, Route, Target } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Loader2, Target } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 
 type AuthStatus = "loading" | "authed" | "anon";
 
@@ -62,9 +60,9 @@ const Welcome = () => {
 
   if (status !== "authed" || !session) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 pt-14">
-        <div className="flex items-center gap-2 text-sm text-slate-600">
-          <Loader2 className="h-4 w-4 animate-spin text-indigo-600" />
+      <div className="flex min-h-screen items-center justify-center bg-background pt-14">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin text-foreground" />
           Completing sign-in…
         </div>
       </div>
@@ -72,20 +70,23 @@ const Welcome = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-14">
+    <div className="min-h-screen bg-background pt-14">
       <div className="container max-w-3xl py-16">
         <div className="mb-10 flex items-center gap-3">
-          <Target className="h-10 w-10 text-slate-900" strokeWidth={1} />
+          <Target className="h-10 w-10 text-foreground" strokeWidth={1} />
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Welcome</p>
-            <h1 className="text-3xl font-semibold tracking-tight text-slate-900">You’re in Blindspot</h1>
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Welcome</p>
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground">You're in Blindspot</h1>
           </div>
         </div>
 
-        <p className="text-lg leading-relaxed text-slate-600">
-          Blindspot turns a photo of handwritten STEM work into a clear diagnostic: where the thinking breaks what
-          type of error it is, and what to teach next.
+        <p className="text-lg leading-relaxed text-muted-foreground">
+          Blindspot turns a photo of handwritten STEM work into a clear diagnostic: where the thinking breaks,
+          what type of error it is, and what to teach next.
         </p>
-        <p className="mt-1 text-sm text-slate-500">
-          (Typo fix: missing comma after “breaks”—)
-        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Welcome;
