@@ -55,59 +55,48 @@ export default function EducatorLayout({
 
   return (
     <SidebarProvider defaultOpen={true}>
-      <div className="min-h-screen bg-background pt-14">
+      <div className="min-h-screen bg-slate-50 pt-14">
         <div className="relative">
-          <Sidebar variant="sidebar" collapsible="icon" className="border-r border-sidebar-border">
+          <Sidebar
+            variant="sidebar"
+            collapsible="icon"
+            className="border-r border-slate-200 bg-white text-sidebar-foreground"
+          >
             <SidebarHeader className="gap-3 p-3">
               <div className="flex items-center justify-between gap-2">
                 <Link to="/" className="flex items-center gap-2">
-                  <Target className="h-4 w-4 text-sidebar-foreground" />
-                  <span className="font-display text-xs font-bold uppercase tracking-widest text-sidebar-foreground">
-                    BlindSpot
-                  </span>
+                  <Target className="h-4 w-4 text-slate-900" strokeWidth={1.5} />
+                  <span className="text-xs font-semibold tracking-tight text-slate-900">Blindspot</span>
                 </Link>
-                <SidebarTrigger className="text-sidebar-foreground/80 hover:text-sidebar-foreground" />
+                <SidebarTrigger className="text-slate-600 hover:text-slate-900" />
               </div>
 
-              <div className="rounded-lg border border-sidebar-border bg-sidebar-accent/30 px-3 py-2">
-                <div className="text-[10px] uppercase tracking-widest text-sidebar-foreground/60">
-                  Classroom view
-                </div>
-                <div className="mt-0.5 text-xs text-sidebar-foreground/90">
-                  Diagnose misconceptions, fast.
-                </div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                <div className="text-[10px] font-medium uppercase tracking-wide text-slate-500">Workspace</div>
+                <div className="mt-0.5 text-xs text-slate-700">Labs & recent scans</div>
               </div>
 
               <SidebarMenu>
                 <NavItem
                   to="/"
                   icon={LayoutDashboard}
-                  label="Dashboard"
+                  label="Home"
                   isActive={location.pathname === "/"}
                 />
-                <NavItem
-                  to="/lab"
-                  icon={Microscope}
-                  label="Lab"
-                  isActive={location.pathname === "/lab"}
-                />
+                <NavItem to="/lab" icon={Microscope} label="Lab" isActive={location.pathname === "/lab"} />
               </SidebarMenu>
             </SidebarHeader>
 
-            <SidebarSeparator />
+            <SidebarSeparator className="bg-slate-200" />
             <HistorySidebar />
             <SidebarRail />
           </Sidebar>
 
-          <SidebarInset className={cn("bg-background", className)}>
-            <div className="container py-10">
-              <div className="mb-8 flex items-end justify-between gap-6">
-                <div className="min-w-0">
-                  <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">{title}</h1>
-                  {subtitle ? (
-                    <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
-                  ) : null}
-                </div>
+          <SidebarInset className={cn("bg-slate-50", className)}>
+            <div className="container max-w-6xl py-8 sm:py-10">
+              <div className="mb-8 flex flex-col gap-1">
+                <h1 className="text-2xl font-semibold tracking-tight text-slate-900">{title}</h1>
+                {subtitle ? <p className="text-sm text-slate-600">{subtitle}</p> : null}
               </div>
 
               {children}
@@ -118,4 +107,3 @@ export default function EducatorLayout({
     </SidebarProvider>
   );
 }
-
