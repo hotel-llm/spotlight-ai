@@ -13,7 +13,7 @@ const Home = () => {
             Fix the thinking, not just the answer.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
-            Scan handwritten work into instant insight so you can fix the root misconceptions faster.
+            Turn handwritten work into instant insight so you can fix the root misconceptions faster.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link to="/lab">
@@ -54,7 +54,7 @@ const Home = () => {
               <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Step 2</p>
               <h3 className="mt-2 text-lg font-semibold tracking-tight text-slate-900">Diagnosis</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Blindspot finds where reasoning breaks and labels the error type clearly.
+                Blindspot finds the issue and reveals the underlying concept.
               </p>
             </Card>
 
@@ -65,7 +65,7 @@ const Home = () => {
               <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Step 3</p>
               <h3 className="mt-2 text-lg font-semibold tracking-tight text-slate-900">Next steps</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Walk students through targeted practice that repairs the blindspot.
+                Students complete targeted practice to repair their blindspot.
               </p>
             </Card>
           </div>
@@ -74,7 +74,7 @@ const Home = () => {
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="container flex flex-col items-center justify-between gap-3 py-6 text-sm text-slate-600 md:flex-row">
-          <p>Built for tutors, teachers, and intervention teams.</p>
+          <p>Built for students, teachers, and schools.</p>
           <Link to="/pricing" className="font-medium text-indigo-600 hover:text-indigo-700">
             Pricing
           </Link>
