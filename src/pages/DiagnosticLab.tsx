@@ -68,7 +68,7 @@ const DiagnosticLab = () => {
           data: { user },
         } = await supabase.auth.getUser();
 
-        await supabase.from("error_logs").insert({
+        await (supabase as any).from("error_logs").insert({
           student_id: user?.id ?? null,
           subject: "STEM",
           topic: (data as any)?.error_tag ?? null,

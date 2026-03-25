@@ -28,7 +28,7 @@ export default function HistorySidebar({ className }: { className?: string }) {
   const historyQuery = useQuery({
     queryKey: ["history", "error_logs", { limit: 5 }],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("error_logs")
         .select("id, subject, topic, specific_error_tag, error_category, created_at")
         .order("created_at", { ascending: false })

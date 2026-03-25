@@ -14,51 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      error_logs: {
-        Row: {
-          id: string
-          student_id: string | null
-          subject: string | null
-          topic: string | null
-          specific_error_tag: string | null
-          error_category: string | null
-          created_at: string
-        }
-        Insert: {
-          id?: string
-          student_id?: string | null
-          subject?: string | null
-          topic?: string | null
-          specific_error_tag?: string | null
-          error_category?: string | null
-          created_at?: string
-        }
-        Update: {
-          id?: string
-          student_id?: string | null
-          subject?: string | null
-          topic?: string | null
-          specific_error_tag?: string | null
-          error_category?: string | null
-          created_at?: string
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          id: string
-          scan_credits: number | null
-        }
-        Insert: {
-          id: string
-          scan_credits?: number | null
-        }
-        Update: {
-          id?: string
-          scan_credits?: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
