@@ -20,16 +20,23 @@ const Login = () => {
   const onLogin = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    setIsLoading(false);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      setIsLoading(false);
 
-    if (error) {
-      toast.error(error.message);
-      return;
+      if (error) {
+        console.error("Login error:", error);
+        toast.error(error.message);
+        return;
+      }
+
+      toast.success("Welcome back.");
+      navigate(redirectTo, { replace: true });
+    } catch (err) {
+      setIsLoading(false);
+      console.error("Login exception:", err);
+      toast.error("An unexpected error occurred. Please try again.");
     }
-
-    toast.success("Welcome back.");
-    navigate(redirectTo, { replace: true });
   };
 
   return (
