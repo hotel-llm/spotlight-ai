@@ -22,19 +22,27 @@ const Signup = () => {
       return;
     }
     setIsLoading(true);
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: window.location.origin },
-    });
-    setIsLoading(false);
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: window.location.origin },
+      });
+      setIsLoading(false);
 
-    if (error) {
-      toast.error(error.message);
-      return;
+      if (error) {
+        console.error("Signup error:", error);
+        toast.error(error.message);
+        return;
+      }
+
+      console.log("Signup success:", data);
+      setSuccess(true);
+    } catch (err) {
+      setIsLoading(false);
+      console.error("Signup exception:", err);
+      toast.error("An unexpected error occurred. Please try again.");
     }
-
-    setSuccess(true);
   };
 
   if (success) {
