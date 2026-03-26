@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Loader2, Mail, Lock, Target } from "lucide-react";
+import { Loader2, Mail, Lock } from "lucide-react";
+import gogodeepLogo from "@/assets/gogodeep-logo.png";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -45,8 +46,8 @@ const Login = () => {
         <div className="container flex min-h-[calc(100vh-3.5rem)] items-center justify-center py-12">
           <Card className="w-full max-w-md border border-border bg-card p-8">
             <div className="mb-6 flex flex-col items-center text-center">
-              <Target className="h-10 w-10 text-primary" strokeWidth={1} />
-              <h1 className="mt-4 text-2xl font-bold tracking-tight text-foreground">Sign in to Blindspot</h1>
+              <img src={gogodeepLogo} alt="Gogodeep" className="h-12 w-12 object-contain" />
+              <h1 className="mt-4 text-2xl font-bold tracking-tight text-foreground">Sign in to Gogodeep</h1>
               <p className="mt-2 text-sm text-muted-foreground">Enter your credentials to continue.</p>
             </div>
 
@@ -55,7 +56,7 @@ const Login = () => {
                 <label htmlFor="login-email" className="text-xs font-medium text-muted-foreground">Email</label>
                 <div className="relative">
                   <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input id="login-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="you@school.edu" required />
+                  <Input id="login-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="name@example.com" required />
                 </div>
               </div>
 

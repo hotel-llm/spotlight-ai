@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { Loader2, Mail, Lock, Target, CheckCircle2 } from "lucide-react";
+import { Loader2, Mail, Lock, CheckCircle2 } from "lucide-react";
+import gogodeepLogo from "@/assets/gogodeep-logo.png";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -17,8 +18,8 @@ const Signup = () => {
 
   const onSignup = async (e: FormEvent) => {
     e.preventDefault();
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters.");
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters.");
       return;
     }
     setIsLoading(true);
@@ -51,7 +52,7 @@ const Signup = () => {
         <div className="relative z-10 min-h-screen pt-14">
           <div className="container flex min-h-[calc(100vh-3.5rem)] items-center justify-center py-12">
             <Card className="w-full max-w-md border border-border bg-card p-10 text-center">
-              <CheckCircle2 className="mx-auto h-12 w-12 text-primary" />
+              <img src={gogodeepLogo} alt="Gogodeep" className="mx-auto h-14 w-14 object-contain" />
               <h1 className="mt-6 text-2xl font-bold tracking-tight text-foreground">Check your email</h1>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 We sent a confirmation link to <span className="font-medium text-foreground">{email}</span>. Click the link to activate your account.
@@ -72,7 +73,7 @@ const Signup = () => {
         <div className="container flex min-h-[calc(100vh-3.5rem)] items-center justify-center py-12">
           <Card className="w-full max-w-md border border-border bg-card p-8">
             <div className="mb-6 flex flex-col items-center text-center">
-              <Target className="h-10 w-10 text-primary" strokeWidth={1} />
+              <img src={gogodeepLogo} alt="Gogodeep" className="h-12 w-12 object-contain" />
               <h1 className="mt-4 text-2xl font-bold tracking-tight text-foreground">Create your account</h1>
               <p className="mt-2 text-sm text-muted-foreground">Start diagnosing misconceptions in minutes.</p>
             </div>
@@ -82,7 +83,7 @@ const Signup = () => {
                 <label htmlFor="signup-email" className="text-xs font-medium text-muted-foreground">Email</label>
                 <div className="relative">
                   <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input id="signup-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="you@school.edu" required />
+                  <Input id="signup-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="name@example.com" required />
                 </div>
               </div>
 
@@ -90,7 +91,7 @@ const Signup = () => {
                 <label htmlFor="signup-password" className="text-xs font-medium text-muted-foreground">Password</label>
                 <div className="relative">
                   <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input id="signup-password" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-border bg-secondary pl-9" placeholder="Min 6 characters" required />
+                  <Input id="signup-password" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-border bg-secondary pl-9" placeholder="Min 8 characters" required />
                 </div>
               </div>
 

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Microscope, Target, LogOut, UserCircle2 } from "lucide-react";
+import { LayoutDashboard, Microscope, LogOut, UserCircle2 } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import gogodeepLogo from "@/assets/gogodeep-logo.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,8 +41,8 @@ const AppNav = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="container flex h-14 items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
-          <Target className="h-5 w-5 text-primary" strokeWidth={1.5} />
-          <span className="text-sm font-bold tracking-tight text-foreground">Blindspot</span>
+          <img src={gogodeepLogo} alt="Gogodeep" className="h-6 w-6 object-contain" />
+          <span className="text-sm font-bold tracking-tight text-foreground">Gogodeep</span>
         </Link>
         <div className="flex items-center gap-1">
           {navItems.map(({ path, label, icon: Icon }) => {
