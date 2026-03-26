@@ -32,7 +32,7 @@ const plans = [
     subtitle: "For schools and multi-student teams",
     features: ["Bulk student licenses", "Teacher dashboard", "Analytics for learning gaps", "SSO integration"],
     cta: "Contact Us",
-    ctaLink: "mailto:hello@blindspot.ai",
+    ctaLink: "mailto:hello@gogodeep.ai",
     featured: false,
   },
 ];

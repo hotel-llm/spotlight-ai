@@ -10,7 +10,7 @@ import { checkScanCredits } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-const SCAN_STEPS = ["Uploading", "Analysis", "Mapping blindspots"] as const;
+const SCAN_STEPS = ["Uploading", "Analysis", "Mapping gaps"] as const;
 
 const DiagnosticLab = () => {
   const [isDragging, setIsDragging] = useState(false);

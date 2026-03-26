@@ -15,7 +15,7 @@
     --popover: 217 33% 7%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 250 60% 65%;
+    --primary: 225 75% 55%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 217 33% 12%;
@@ -32,7 +32,7 @@
 
     --border: 217 33% 14%;
     --input: 217 33% 14%;
-    --ring: 250 60% 65%;
+    --ring: 225 75% 55%;
 
     --radius: 0.75rem;
 
@@ -42,12 +42,12 @@
 
     --sidebar-background: 217 33% 5%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 250 60% 65%;
+    --sidebar-primary: 225 75% 55%;
     --sidebar-primary-foreground: 210 40% 98%;
     --sidebar-accent: 217 33% 12%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 33% 14%;
-    --sidebar-ring: 250 60% 65%;
+    --sidebar-ring: 225 75% 55%;
   }
 }
 
@@ -95,7 +95,7 @@
 .liquid-glass-bg::before {
   width: 600px;
   height: 600px;
-  background: hsl(250 60% 65%);
+  background: hsl(225 75% 55%);
   top: -10%;
   left: -5%;
   animation: liquid-drift 20s ease-in-out infinite;
@@ -104,7 +104,7 @@
 .liquid-glass-bg::after {
   width: 500px;
   height: 500px;
-  background: hsl(270 60% 55%);
+  background: hsl(215 80% 45%);
   bottom: -10%;
   right: -5%;
   animation: liquid-drift 25s ease-in-out infinite reverse;

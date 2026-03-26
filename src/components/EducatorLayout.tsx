@@ -1,5 +1,6 @@
 import * as React from "react";
-import { LayoutDashboard, Microscope, Target } from "lucide-react";
+import { LayoutDashboard, Microscope } from "lucide-react";
+import gogodeepLogo from "@/assets/gogodeep-logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 import HistorySidebar from "@/components/HistorySidebar";
@@ -65,8 +66,8 @@ export default function EducatorLayout({
             <SidebarHeader className="gap-3 p-3">
               <div className="flex items-center justify-between gap-2">
                 <Link to="/" className="flex items-center gap-2">
-                  <Target className="h-4 w-4 text-primary" strokeWidth={1.5} />
-                  <span className="text-xs font-bold tracking-tight text-foreground">Blindspot</span>
+                  <img src={gogodeepLogo} alt="Gogodeep" className="h-5 w-5 object-contain" />
+                  <span className="text-xs font-bold tracking-tight text-foreground">Gogodeep</span>
                 </Link>
                 <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
               </div>

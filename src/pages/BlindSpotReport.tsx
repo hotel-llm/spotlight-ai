@@ -9,7 +9,7 @@ import PageTransition from "@/components/PageTransition";
 const getStatusCopy = (errorCategory: string) => {
   if (errorCategory.toLowerCase() === "conceptual") {
     return {
-      label: "Conceptual Blindspot",
+      label: "Conceptual Gap",
       classes: "bg-destructive/10 text-destructive border-destructive/20",
       hint: "Student likely needs concept re-teaching before more problem volume.",
     };
