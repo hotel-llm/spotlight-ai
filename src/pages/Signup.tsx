@@ -12,14 +12,30 @@ import PageTransition from "@/components/PageTransition";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
   const onSignup = async (e: FormEvent) => {
     e.preventDefault();
+    if (!isValidEmail(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    if (email !== confirmEmail) {
+      toast.error("Email addresses do not match.");
+      return;
+    }
     if (password.length < 8) {
       toast.error("Password must be at least 8 characters.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
       return;
     }
     setIsLoading(true);
@@ -85,6 +101,20 @@ const Signup = () => {
                   <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input id="signup-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="name@example.com" required />
                 </div>
+                {email.length > 0 && !isValidEmail(email) && (
+                  <p className="text-xs text-destructive">Please enter a valid email address.</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="signup-confirm-email" className="text-xs font-medium text-muted-foreground">Confirm Email</label>
+                <div className="relative">
+                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="signup-confirm-email" type="email" autoComplete="email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="name@example.com" required />
+                </div>
+                {confirmEmail.length > 0 && confirmEmail !== email && (
+                  <p className="text-xs text-destructive">Email addresses do not match.</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -93,6 +123,20 @@ const Signup = () => {
                   <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input id="signup-password" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-border bg-secondary pl-9" placeholder="Min 8 characters" required />
                 </div>
+                {password.length > 0 && password.length < 8 && (
+                  <p className="text-xs text-destructive">Password must be at least 8 characters.</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="signup-confirm-password" className="text-xs font-medium text-muted-foreground">Confirm Password</label>
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="signup-confirm-password" type="password" autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="border-border bg-secondary pl-9" placeholder="Re-enter password" required />
+                </div>
+                {confirmPassword.length > 0 && confirmPassword !== password && (
+                  <p className="text-xs text-destructive">Passwords do not match.</p>
+                )}
               </div>
 
               <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
