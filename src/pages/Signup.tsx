@@ -12,14 +12,30 @@ import PageTransition from "@/components/PageTransition";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
   const onSignup = async (e: FormEvent) => {
     e.preventDefault();
+    if (!isValidEmail(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    if (email !== confirmEmail) {
+      toast.error("Email addresses do not match.");
+      return;
+    }
     if (password.length < 8) {
       toast.error("Password must be at least 8 characters.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
       return;
     }
     setIsLoading(true);
