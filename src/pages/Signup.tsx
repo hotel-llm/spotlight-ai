@@ -101,6 +101,20 @@ const Signup = () => {
                   <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input id="signup-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="name@example.com" required />
                 </div>
+                {email.length > 0 && !isValidEmail(email) && (
+                  <p className="text-xs text-destructive">Please enter a valid email address.</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="signup-confirm-email" className="text-xs font-medium text-muted-foreground">Confirm Email</label>
+                <div className="relative">
+                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="signup-confirm-email" type="email" autoComplete="email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} className="border-border bg-secondary pl-9" placeholder="name@example.com" required />
+                </div>
+                {confirmEmail.length > 0 && confirmEmail !== email && (
+                  <p className="text-xs text-destructive">Email addresses do not match.</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -108,6 +122,17 @@ const Signup = () => {
                 <div className="relative">
                   <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input id="signup-password" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-border bg-secondary pl-9" placeholder="Min 8 characters" required />
+                </div>
+                {password.length > 0 && password.length < 8 && (
+                  <p className="text-xs text-destructive">Password must be at least 8 characters.</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="signup-confirm-password" className="text-xs font-medium text-muted-foreground">Confirm Password</label>
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="signup-confirm-password" type="password" autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="border-border bg-secondary pl-9" placeholder="Re-enter password" required />
                 </div>
               </div>
 
